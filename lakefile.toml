@@ -1,0 +1,10 @@
+name = "LeanTry"
+version = "0.1.0"
+defaultTargets = ["leantry"]
+
+[[lean_lib]]
+name = "LeanTry"
+
+[[lean_exe]]
+name = "leantry"
+root = "Main"
