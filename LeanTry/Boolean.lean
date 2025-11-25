@@ -82,3 +82,24 @@ def simplify : BoolExpr → BoolExpr
     | not e' => e'  -- double negation
     | e' => not e'
   | e => e
+
+-- PP: Pretty printer for BoolExpr. TODO@Jingren Wang: Remove PP to a seperate package
+def toString : BoolExpr → String
+  | var name => name
+  | trueE => "true"
+  | falseE => "false"
+  | not e => s!"¬({toString e})"
+  | and e1 e2 => s!"({toString e1} ∧ {toString e2})"
+  | or e1 e2 => s!"({toString e1} ∨ {toString e2})"
+
+instance : ToString BoolExpr := ⟨BoolExpr.toString⟩
+#eval (beq trueE trueE)
+#eval (beq trueE falseE)
+
+--structurally eq, not logically eq--
+#eval (beq (and trueE falseE) (and trueE falseE))
+#eval (beq (and falseE trueE) (and trueE falseE))
+
+#check simplify (and trueE falseE)
+#eval simplify (and trueE falseE)
+end BoolExpr
